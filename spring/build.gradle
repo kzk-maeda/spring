@@ -18,6 +18,9 @@ configurations {
 
 repositories {
 	mavenCentral()
+	maven {
+		url "http://maven.seasar.org/maven2"
+	}
 }
 
 dependencies {
@@ -31,4 +34,7 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	// BootStrap & jQuery
+	compile 'org.webjars:jquery:1.11.1'
+	compile 'org.webjars:bootstrap:3.3.7'
 }

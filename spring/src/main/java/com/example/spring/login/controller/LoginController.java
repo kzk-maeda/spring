@@ -18,6 +18,6 @@ public class LoginController {
     @PostMapping("/login")
     public String postLogin(Model model) {
         // go to login.html
-        return "login/login";
+        return "login/home";
     }
 }

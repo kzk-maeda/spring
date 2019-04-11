@@ -18,7 +18,7 @@ public interface UserDao {
     public User selectOne(String userId) throws DataAccessException;
 
     // Userテーブルの全データを取得
-    public List<User> seletMeny() throws DataAccessException;
+    public List<User> selectMany() throws DataAccessException;
 
     // Userテーブルの値を１件更新
     public int updateOne(User user) throws DataAccessException;

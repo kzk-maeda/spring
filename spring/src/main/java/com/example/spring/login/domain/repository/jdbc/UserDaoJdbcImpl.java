@@ -1,6 +1,9 @@
 package com.example.spring.login.domain.repository.jdbc;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -17,13 +20,24 @@ public class UserDaoJdbcImpl implements UserDao {
     // Userテーブルの件数を取得
     @Override
     public int count() throws DataAccessException {
-        return 0;
+        // count
+        return jdbc.queryForObject("SELECT COUNT(*) FROM m_user", Integer.class);
     }
 
     // Userテーブルにデータを１件投入
     @Override
     public int insertOne(User user) throws DataAccessException {
-        return 0;
+        // insert
+        return jdbc.update("INSERT INTO m_user (user_id, password, user_name, birthday, age, marriage, role)"
+            + "VALUES(?, ?, ?, ?, ?, ?, ?)"
+            ,user.getUserId()
+            ,user.getPassword()
+            ,user.getUserName()
+            ,user.getBirthday()
+            ,user.getAge()
+            ,user.isMarriage()
+            ,user.getRole());
+
     }
 
     // Userテーブルのデータを１件取得
@@ -34,8 +48,32 @@ public class UserDaoJdbcImpl implements UserDao {
 
     // Userテーブルの全データを取得
     @Override
-    public List<User> seletMeny() throws DataAccessException {
-        return null;
+    public List<User> selectMany() throws DataAccessException {
+        // get all data
+        List<Map<String, Object>> getList = jdbc.queryForList("SELECT * FROM m_user");
+
+        // value for result
+        List<User> userList = new ArrayList<>();
+
+        // insert result to list
+        for (Map<String, Object> map: getList) {
+            // User instance create
+            User user = new User();
+
+            // set data to User instance
+            user.setUserId((String)map.get("user_id"));
+            user.setPassword((String)map.get("password"));
+            user.setUserName((String)map.get("user_name"));
+            user.setBirthday((Date)map.get("birthday"));
+            user.setAge((Integer)map.get("age"));
+            user.setMarriage((Boolean)map.get("marriage"));
+            user.setRole((String)map.get("role"));
+
+            // add result list
+            userList.add(user);
+        }
+
+        return userList;
     }
 
     // Userテーブルの値を１件更新

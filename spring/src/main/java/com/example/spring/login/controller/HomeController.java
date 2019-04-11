@@ -1,10 +1,14 @@
 package com.example.spring.login.controller;
 
 import com.example.spring.login.domain.model.SignupForm;
+import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.List;
 import com.example.spring.login.domain.model.User;
 import java.util.Map;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import com.example.spring.login.domain.service.UserService;
@@ -146,7 +150,22 @@ public class HomeController {
 
     // ユーザー一覧のCSV出力用メソッド
     @GetMapping("/userList/csv")
-    public String getUserListCsv(Model model) {
-        return getUserList(model);
+    public ResponseEntity<byte[]> getUserListCsv(Model model) {
+        // get all user and save csv
+        userService.userCsvOut();
+        byte[] bytes = null;
+
+        try {
+            bytes = userService.getFile("sample.csv");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // set HTTP header
+        HttpHeaders header = new HttpHeaders();
+        header.add("Content-Type", "text/csv; charset=UTF8");
+        header.setContentDispositionFormData("filename", "sample.csv");
+
+        return new ResponseEntity<>(bytes, header, HttpStatus.OK);
     }
 }

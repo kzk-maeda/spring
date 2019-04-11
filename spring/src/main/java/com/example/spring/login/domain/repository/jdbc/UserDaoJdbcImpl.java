@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.example.spring.login.domain.model.User;
 import com.example.spring.login.domain.repository.UserDao;
 
-@Repository
+@Repository("UserDaoJdbcImpl")
 public class UserDaoJdbcImpl implements UserDao {
 
     @Autowired
@@ -119,6 +119,15 @@ public class UserDaoJdbcImpl implements UserDao {
     // SQL結果をサーバにcsvで保存する
     @Override
     public void userCsvOut() throws DataAccessException {
+
+        // sql
+        String sql = "SELECT * FROM m_user";
+
+        // ResultSetExtractorの生成
+        UserRowCallbackHandler handler = new UserRowCallbackHandler();
+
+        // execute sql & output csv
+        jdbc.query(sql, handler);
 
     }
 }

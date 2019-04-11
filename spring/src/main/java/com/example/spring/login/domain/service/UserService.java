@@ -38,4 +38,41 @@ public class UserService {
     public List<User> selectMany() {
         return dao.selectMany();
     }
+
+    // get single data method
+    public User selectOne(String userId) {
+        return dao.selectOne(userId);
+    }
+
+    // update user data method
+    public boolean updateOne(User user) {
+        // execute update
+        int rowNumber = dao.updateOne(user);
+
+        // jadge
+        boolean result = false;
+
+        if (rowNumber > 0) {
+            // success
+            result = true;
+        }
+
+        return result;
+    }
+
+    // delete user method
+    public boolean deleteOne(String userId) {
+        // execute delete
+        int rowNumber = dao.deleteOne(userId);
+
+        // jadge
+        boolean result = false;
+
+        if (rowNumber > 0) {
+            // success
+            result = true;
+        }
+
+        return result;
+    }
 }

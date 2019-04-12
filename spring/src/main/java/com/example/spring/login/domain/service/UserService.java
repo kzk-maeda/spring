@@ -18,7 +18,7 @@ import com.example.spring.login.domain.model.User;
 public class UserService {
 
     @Autowired
-    @Qualifier("UserDaoJdbcImpl3")
+    @Qualifier("UserDaoJdbcImpl")
     UserDao dao;
 
     // insert method

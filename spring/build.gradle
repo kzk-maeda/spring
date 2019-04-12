@@ -40,5 +40,6 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-aop'
 	implementation 'org.springframework:spring-aop'
 	implementation 'org.aspectj:aspectjweaver'
-	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity4'
+	// implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity4'
+	compile group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity4', version: '2.1.2.RELEASE'
 }
